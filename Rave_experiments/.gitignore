@@ -1,0 +1,4 @@
+models/*.ts
+audio/*.wav
+audio/*.mp3
+.DS_Store
