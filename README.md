@@ -2,7 +2,7 @@
 
 # Life
 
-A live audiovisual performance built on Convay's Game of Life. The simulation is the score. Population, growth and collapse pick the sound, and a MIDI controller lets us push the rules around while it is running.
+A live audiovisual performance built on Conway's Game of Life. The simulation is the score. Population, growth and collapse pick the sound, and a MIDI controller lets us push the rules around while it is running.
 
 Made with **Nicolas Urrego Sandoval**. I worked mainly on the audio: RAVE, the latent vector, and the mood system that ties cell count to sound. Niko worked mainly on the Game of Life and the TouchDesigner visuals. The split was never clean. The mappings, the thresholds and the two performances were decided together.
 
@@ -78,7 +78,7 @@ The model files and the loops belong to their authors. They are not part of this
 
 `evolve_latent.py` writes a new `z_bias` on every audio frame, with a random hold time. The sound moves on its own. That was the first version that felt like it could be attached to a simulation instead of to a timer.
 
-`evolve_mouse.py` was the four-mood idea done badly on purpose, to see if it worked. Four random latent presets sit in the corners of the screen. The mouse blends the top edge, blends the bottmm edge, then blends those two results. `z` eases toward that target (`0.8 * old + 0.02 * target`). It did not read as four moods. Squashing the latent to a mouse x/y made everything a slow drone. The crossfade itself was worth keeping. The corner trick was not.
+`evolve_mouse.py` was the four-mood idea done badly on purpose, to see if it worked. Four random latent presets sit in the corners of the screen. The mouse blends the top edge, blends the bottom edge, then blends those two results. `z` eases toward that target (`0.8 * old + 0.02 * target`). It did not read as four moods. Squashing the latent to a mouse x/y made everything a slow drone. The crossfade itself was worth keeping. The corner trick was not.
 
 ### The sequencer detour
 
@@ -156,7 +156,7 @@ People described the image as bacteria, algae, growth. A few called it both natu
 
 The part I keep is the limit. We could change the rules, drop a seed, and ride the volume with the population. We could not aim the pattern. The set became a loop of change something, look, change something else.
 
-I had arrived at Convay from the other direction, from Markov-style prediction and the idea of a system that only knows what tends to follow. Life is that idea with the prediction taken out. The rules are tiny, the state is the whole history, and the performance is whatever the state does next.
+I had arrived at Conway from the other direction, from Markov-style prediction and the idea of a system that only knows what tends to follow. Life is that idea with the prediction taken out. The rules are tiny, the state is the whole history, and the performance is whatever the state does next.
 
 A practical note, because it saved the last week: one folder per mood, gains at zero until a file is chosen, and a clamp on `z`. Most of the "the model sounds broken" afternoons were an unclamped latent or a threshold copied from a smaller grid.
 
