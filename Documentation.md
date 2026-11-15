@@ -65,18 +65,18 @@ That said, all of the major decisions were made collaboratively. Both of us were
 
 ### Finding the best way to simulate
 
-Once we got the concept we started testing different ways to simulate Conway's Game of Life in a way that allowed us to do live changes to the rules while having a flexible enough output to process it in different ways. At first, I thought of having using [educ8's example](<./GoL_experiments/educ8s example>) which uses Pygame to run the simulation and edit the grid in real time, then capturing snapshots of the game through a script to process the visuals and the audio; this was a compelling option as it allowed us to focus on audio, with TouchDesigner working as a VFx system rather than a runtime. However, we discarded this option as it did not allow live coding and had a high-performance overhead to manage the game state.
+Once we got the concept we started testing different ways to simulate Conway's Game of Life in a way that allowed us to do live changes to the rules while having a flexible enough output to process it in different ways. At first, we thought of having using [educ8's example](<./GoL_experiments/educ8s example>) which uses Pygame to run the simulation and edit the grid in real time, then capturing snapshots of the game through a script to process the visuals and the audio; this was a compelling option as it allowed us to focus on audio, with TouchDesigner working as a VFx system rather than a runtime. However, we discarded this option as it did not allow live coding and had a high-performance overhead to manage the game state.
 
-Meanwhile, I figured that our ideal output would only comprise a list of coordinates with cells, there was no need to have a visual output at the simulation stage. I found an [example from realpython](https://realpython.com/conway-game-of-life-python/#step-3-define-and-load-the-life-patterns) which used sets to manage the game logic in a clever and lightweight way, allowing for an infinite grid to grow and not needing any external libraries to run. I used the core logic of it to have a [quick Dorothy version](<./GoL_experiments/Dorothy light version>) in which I could live-code the rules and see if it had the intended effects. The test was successful, the grow rate and patterns emergent on the cells changed a lot with changes to three rules: span requirements and minimum/maximum neighbouring cells to survive.
+Meanwhile, we figured that our ideal output would only comprise a list of coordinates with cells, there was no need to have a visual output at the simulation stage. We found an [example from realpython](https://realpython.com/conway-game-of-life-python/#step-3-define-and-load-the-life-patterns) which used sets to manage the game logic in a clever and lightweight way, allowing for an infinite grid to grow and not needing any external libraries to run. We used the core logic of it to have a [quick Dorothy version](<./GoL_experiments/Dorothy light version>) in which we could live-code the rules and see if it had the intended effects. The test was successful, the grow rate and patterns emergent on the cells changed a lot with changes to three rules: span requirements and minimum/maximum neighbouring cells to survive.
  
 
 ### Initial visual system
 
 Because the simulation now only outputs a set of coordinates there were two ways forward to make the visuals, either doing a simple visual in Dorothy and capturing the video feed in TD to process it or having TD as the runtime environment and using the coordinates to create the visuals. We decided to go for the second option as it gave us greater control over the pipeline while reducing technical complexity.
 
-This meant we now needed to run the simulation from TD, I tried to have the same script with Dorothy to run on demand through TD’s script function but it crashed the application every time (apparently TD can’t handle blocking scripts). So, I only implemented the evolution function and had a textbox with the current state to transform it into a visual element. This was surprising, as it showed we could control the simulation speed, parameters, and rules live without needing a live-coding environment.
+This meant we now needed to run the simulation from TD, we tried to have the same script with Dorothy to run on demand through TD’s script function but it crashed the application every time (apparently TD can’t handle blocking scripts). So, we only implemented the evolution function and had a textbox with the current state to transform it into a visual element. This was surprising, as it showed we could control the simulation speed, parameters, and rules live without needing a live-coding environment.
 
-Finally, I constructed a grid with a shape being instantiated in every coordinate the simulation’s current state had, added some custom shaders, rendered the image and applied some visual effects to make it a bit more interesting. We had a functional visual system which we could build on later.
+Finally, we constructed a grid with a shape being instantiated in every coordinate the simulation’s current state had, added some custom shaders, rendered the image and applied some visual effects to make it a bit more interesting. We had a functional visual system which we could build on later.
 
 ----
 
@@ -85,12 +85,12 @@ Finally, I constructed a grid with a shape being instantiated in every coordinat
 
 ### Rave_exploration/trying different models;
 
-Started by trying different RAVE models: vintage, birds, humpback, etc. just to hear the general vibe and see what matched what we were going for. Then added a manual layer in `rave_exploration.py` where I changed one latent dimension at a time and re-ran to see if any dimensions did anything interesting. Hard to tell much without file input, often sounds different for a second then goes back to the same constant noise.
+Started by trying different RAVE models: vintage, birds, humpback, etc. just to hear the general vibe and see what matched what we were going for. Then added a manual layer in `rave_exploration.py` where we changed one latent dimension at a time and re-ran to see if any dimensions did anything interesting. Hard to tell much without file input, often sounds different for a second then goes back to the same constant noise.
 
 ----
 
 ### Random_latent;
-Got tired of manually changing dimension values every run. In this I let the model pick random latent values instead, to quickly sample the vibe of each model. Ended up choosing musicnet because it had more variety in the kinds of outputs we wanted.
+Got tired of manually changing dimension values every run. In this we let the model pick random latent values instead, to quickly sample the vibe of each model. Ended up choosing musicnet because it had more variety in the kinds of outputs we wanted.
 
 Link to model: https://acids-ircam.github.io/rave_models_download
 
@@ -106,7 +106,7 @@ Tried learning how to evolve the model using `on_new_frame`. Liked the emergent 
 
 We had an idea to map the 4 moods as different axes, move the audio output toward a specific mood region. Tried it with mouse coordinates: simplified the latent space to 2D, put a random preset at each corner, and **interpolated** between them based on mouse position (blending top-left/top-right, then blending that with bottom, so moving the mouse smoothly mixes between the four corner sounds instead of jumping).
 
-I didnt work as well I tohught it would. Maybe because I squashed it to 2D? Not sure if that’s technically the right way to say it, but the moods didn’t read clearly, still felt like abstract drone-y stuff, and the smoothing made it slow and mushy. The crossfade idea was useful later though, when we did it with actual WAV files.
+It didnt work as well we tohught it would. Maybe because we squashed it to 2D? Not sure if that’s technically the right way to say it, but the moods didn’t read clearly, still felt like abstract drone-y stuff, and the smoothing made it slow and mushy. The crossfade idea was useful later though, when we did it with actual WAV files.
 
 ```python
 from pathlib import Path
@@ -611,7 +611,7 @@ alive count: 220–419  -->	Computer
 alive count: ≥ 420  -->	Doom
 
 The pick_mood() function decides which mood should be active based on the current alive cell count.
-I start with the gain set to 0 for all moods. The different audio streams are always running in the background, but only the active mood is brought up through a gradual crossfade, and within each mood, only one file stream is fully up at a time.
+We start with the gain set to 0 for all moods. The different audio streams are always running in the background, but only the active mood is brought up through a gradual crossfade, and within each mood, only one file stream is fully up at a time.
 For example, when the simulation transitions from Nature to Industrial:
 
 -Nature gradually fades down
@@ -656,7 +656,7 @@ The problem was that the grid size we were using in TouchDesigner was considerab
 
 
 ## Integrating audio with TouchDesigner
-From our previous experience trying to get a Dorothy environment to run via TouchDesigner, we knew we had to have separate runtime environments for each purpose, making sure to communicate the simulation results with the audio generation environment. I figured we could have a simple version of local storage to work as the source of truth for both programmes to ensure consistent results, other options included having a live communication between them, but previous experiences have showed me this approach is unreliable and unnecessary for our requirements. That meant that we were running the Rave and audio output through python while the simulation and visuals ran in the TouchDesigner environment.
+From our previous experience trying to get a Dorothy environment to run via TouchDesigner, we knew we had to have separate runtime environments for each purpose, making sure to communicate the simulation results with the audio generation environment. We figured we could have a simple version of local storage to work as the source of truth for both programmes to ensure consistent results, other options included having a live communication between them, but previous experiences have showed me this approach is unreliable and unnecessary for our requirements. That meant that we were running the Rave and audio output through python while the simulation and visuals ran in the TouchDesigner environment.
 
 ![Frame 2606847](https://git.arts.ac.uk/user-attachments/assets/2c68b6b9-d187-4404-8863-a6d922fa26f3)
 
@@ -712,7 +712,7 @@ Did a trial performance. Concept was there but the audio wasn’t interesting en
 Maybe smoother transitions. Or more gain would be helpful?
 * the audio output and video output did not seem connected yet. 
 * there was not enough context provided for users to make sense of the simulation/system. (Included text)
-* niko and I hadn’t yet decided how to split up the controllers so this led to a lot of confusion during the live performance. (In the revision we decided to clearly split up our respective controls)
+* We hadn’t yet decided how to split up the controllers so this led to a lot of confusion during the live performance. (In the revision we decided to clearly split up our respective controls)
 * there were some interesting presets we had discovered during our explorations and we weren’t able to show them during the performance (we were thinking of having shortcuts to the specific interesting ones)
 <img width="973" alt="image" src="https://git.arts.ac.uk/user-attachments/assets/4cb635fd-86ed-4f1d-b723-0dd840fd5288" />
 
@@ -745,13 +745,13 @@ We followed the user research and testing framework and had the following result
 
 ### Audience Perception
 
-**Where am I guessing about how the audience will respond?**
+**Where are we guessing about how the audience will respond?**
 
 * We are assuming that a higher understanding of the system, its controls, and subsequent behaviour would result in more interest and engagement from the audience.
 * How much effect does revealing the intent and concept behind the performance have on audience perception? Does the critical message get conveyed?
 
 
-**What relationship am I asking the audience to have with the data/system/medium?**
+**What relationship are we asking the audience to have with the data/system/medium?**
 
 * To gather an understanding of the data and system.
 * To notice the correlation between the data and how it drives the system.
@@ -781,7 +781,7 @@ We followed the user research and testing framework and had the following result
 
 ### Success Criteria
 
-**If a stranger watched this and described it back to me, what would I be horrified to hear?**
+**If a stranger watched this and described it back to me, what would we be horrified to hear?**
 
 * It's awful.
 * These people suck.
@@ -790,7 +790,7 @@ We followed the user research and testing framework and had the following result
 * It was reduced to just an audiovisual piece.
 * Did they actually perform?
 
-**What would I be delighted to hear?**
+**What would we be delighted to hear?**
 
 * They could identify a relationship between our actions and the behaviour of the system.
 * They understood that we were shaping conditions rather than directly controlling outcomes.
@@ -801,7 +801,7 @@ We followed the user research and testing framework and had the following result
 
 ### Performer Agency & Emergence
 
-**What is the difference between what I think is happening and what is actually happening on stage?**
+**What is the difference between what we think is happening and what is actually happening on stage?**
 
 * We are controlling the narrative, but we don't have complete control over the outcome.
 * We can drive specific parameters, but leave room for emergent behaviour.
@@ -856,12 +856,12 @@ We performed the piece twice, first and then later at the Crypt.
 There were a lot of things that didn't go completely right...while these weren't explicit failures they were important observations which helped us redirect our approach at various stages of development.
 
 
-* One of the most useful pieces of feedback from the first performance was that 40% of respondents felt the visuals and sound did not seem connected. This was honestly one of my biggest fears throughout the project. We had decided to split up the tasks quite naturally, with one person focusing a little more on the audio and the other on the visuals, and I was scared they wouldn't sound coherent enough when mashed together. More like, the association between the cell growth and behaviour and the audio change would not be visible at all.
+* One of the most useful pieces of feedback from the first performance was that 40% of respondents felt the visuals and sound did not seem connected. This was honestly one of my biggest fears throughout the project. We had decided to split up the tasks quite naturally, with one person focusing a little more on the audio and the other on the visuals, and we were scared they wouldn't sound coherent enough when mashed together. More like, the association between the cell growth and behaviour and the audio change would not be visible at all.
 In the feedback survey, people did explicitly say this as well, which was a little heartbreaking. But it also validated our own observations after the performance and gave us a clear direction for improvement. We ended up tweaking the audio mappings and transitions quite a bit before the Crypt performance and it did feel noticeably better.
 
 * The feedback was otherwise pretty encouraging. Most participants felt there was a balance between human and machine agency, which was nice because that was one of the main things we were trying to explore. We wanted to create a system that could be influenced and guided, but never completely controlled.
 
-* The open-ended responses were pretty interesting as well. Several people described the visuals as bacteria, algae, growth or evolution, while others commented on how it felt both natural and digital at the same time. I actually really liked this because it meant people were engaging with the behaviours of the system itself rather than just seeing it as a Conway replica.
+* The open-ended responses were pretty interesting as well. Several people described the visuals as bacteria, algae, growth or evolution, while others commented on how it felt both natural and digital at the same time. We actually really liked this because it meant people were engaging with the behaviours of the system itself rather than just seeing it as a Conway replica.
 
 * Another thing that came up was that people wanted more context, which does make a lot of sense. We had spent weeks building and testing the simulation, so a lot of the behaviours felt obvious to us. For someone seeing it for the first time though, there wasn't always enough information to understand what exactly we were controlling and why certain changes were happening.
 We ended up adding live stats for the crypt version to give better system feedback to the audience, and it ended up adding a lot of aethetic value as a bonus as well
@@ -869,7 +869,7 @@ We ended up adding live stats for the crypt version to give better system feedba
 <img width="339" alt="image" src="https://git.arts.ac.uk/user-attachments/assets/e6723e4c-efba-414e-a448-9c535872583c" />
 
 
-* Internally, one of the biggest struggles was performer agency. Niko and I hadn't yet decided how to split up the controllers during the first performance, which led to a lot of confusion during the live performance itself. We were also simplifying a lot of controls out of fear that something might go wrong, but that also meant the performers(us) weren't visibly doing much to change the state of the system. The human vs machine balance was honestly one of the constant struggles throughout the project.
+* Internally, one of the biggest struggles was performer agency. We hadn't yet decided how to split up the controllers during the first performance, which led to a lot of confusion during the live performance itself. We were also simplifying a lot of controls out of fear that something might go wrong, but that also meant the performers(us) weren't visibly doing much to change the state of the system. The human vs machine balance was honestly one of the constant struggles throughout the project.
 
 * The Crypt performance exposed a few technical edge cases as well. There were a few points where the reset collided with the lowest reproduction rule set, which caused newly spawned cells to instantly die. Nothing completely broke, but it was a good reminder that even after stress testing, emergent systems will always find new ways to surprise you.
 
@@ -881,15 +881,15 @@ We ended up adding live stats for the crypt version to give better system feedba
 * The most interesting part of the project for me was the tension between control and emergence.
 Although we could modify the rules governing the simulation, trigger seed drops and influence the overall behaviour of the system, we could never fully predict the outcome. The performance became less about directly creating visuals and sounds and more about shaping the conditions from which they could emerge.
 
-* One thing that really stuck with me was the discussion around predictive systems. The Markov prediction exercises were actually what got me thinking about Conway's Game of Life in the first place. I was initially interested in using Markov prediction layers alongside classification systems to drive audio generation. That eventually led me down a rabbit hole of thinking about systems that evolve over time, probabilities, prediction and emergence, which is how I ended up becoming interested in Conway's Game of Life as the foundation for this project.
+* One thing that really stuck with me was the discussion around predictive systems. The Markov prediction exercises were actually what got me thinking about Conway's Game of Life in the first place. We were initially interested in using Markov prediction layers alongside classification systems to drive audio generation. That eventually led me down a rabbit hole of thinking about systems that evolve over time, probabilities, prediction and emergence, which is how we ended up becoming interested in Conway's Game of Life as the foundation for this project.
 
-* I also found myself thinking a lot about performer agency throughout the project. Whether it was machine learning models, generative systems or audiovisual tools, there was always this question of how much control is being handed over to the system. How much creativity is being forfeited? How much of the performer's own biases are already embedded in the choice of dataset, model or parameters? That tension between control and emergence ended up becoming one of the central themes of our project.
+* We also found ourselves thinking a lot about performer agency throughout the project. Whether it was machine learning models, generative systems or audiovisual tools, there was always this question of how much control is being handed over to the system. How much creativity is being forfeited? How much of the performer's own biases are already embedded in the choice of dataset, model or parameters? That tension between control and emergence ended up becoming one of the central themes of our project.
 
 * On a technical level, the project pushed me to become much more comfortable moving between Python, TouchDesigner and machine learning tools. More importantly, it taught me to think in terms of parameter spaces, mappings and relationships between inputs and outputs rather than individual effects or features.
 
 * Another really random learning; having a folder structure for every mood instead of linking individual input files by name was such a lifesaver. It helped us out so much when we were experimenting with different audio files trying to find the best moods
 
-* Finally, the project reinforced something I keep running into across design, coding and art: constraints are usually more interesting than unlimited freedom. Conway's Game of Life is probably the perfect example of that. A handful of simple rules can create surprisingly complex, unpredictable and performable behaviour.
+* Finally, the project reinforced something we keep running into across design, coding and art: constraints are usually more interesting than unlimited freedom. Conway's Game of Life is probably the perfect example of that. A handful of simple rules can create surprisingly complex, unpredictable and performable behaviour.
 
 --- 
 
@@ -898,27 +898,27 @@ Although we could modify the rules governing the simulation, trigger seed drops 
 ## Performance Evaluation: Audience Feedback and Personal Observations
 
 #### First performance
-* The performance didn’t come out the way we wanted but that was good: Before the performance I feared that people would think that we had a preset video and just played it, but once we got there and started playing with the system, we were in enough control to manage pacing, rhythm and overall experience. This also meant that we could make mistakes and we did, which showed the liveliness was definitely there. This was supported by the feedback, with a majority of responses stating they found a was a balance between human and machine agency, the goal we set of creating a system we could steer In a direction but not fully control was achieved.
-* From the feedback we gathered we noticed that around 40% of respondents felt the visuals and sound were not connected. I feel like the splitting of tasks we did, which was helpful to achieve the ambitious result we wanted, had a big part on this perceived split; another factor is the fact that the visual changes happen much faster than the audio changes, which means that if not handled correctly the audio can lag behind the actual simulation on screen. To solve this, we proposed working together in some final adjustments to the project before the performance at the crypt.
+* The performance didn’t come out the way we wanted but that was good: Before the performance we feared that people would think that we had a preset video and just played it, but once we got there and started playing with the system, we were in enough control to manage pacing, rhythm and overall experience. This also meant that we could make mistakes and we did, which showed the liveliness was definitely there. This was supported by the feedback, with a majority of responses stating they found a was a balance between human and machine agency, the goal we set of creating a system we could steer In a direction but not fully control was achieved.
+* From the feedback we gathered we noticed that around 40% of respondents felt the visuals and sound were not connected. We feel like the splitting of tasks we did, which was helpful to achieve the ambitious result we wanted, had a big part on this perceived split; another factor is the fact that the visual changes happen much faster than the audio changes, which means that if not handled correctly the audio can lag behind the actual simulation on screen. To solve this, we proposed working together in some final adjustments to the project before the performance at the crypt.
 * From the open-ended responses my main takeaway is that the system wasn’t as visible as it should and the audience felt that lack of information, some answers asked for further context on the changes we were making, the effects they had and the general message of the piece. However, a positive is that the intuitive analysis of the piece mentioned natural elements being balanced with digital elements, the visuals evoking bacteria or cells, and control being the topic being questioned.
 
 We had a meeting to share our reflections and noticed similar observations, so we decided to make changes to both the audio and visual systems: The audio mappings were modified to have more variety, a more rhythmic base was added and transitions were adjusted to have smoother but more noticeable changes; while visually the focus was in making the performance feel more cohesive, we wanted the state of the game to be more visible so we added live stats to give better system feedback to the audience, remapped some settings and states, and added more backgrounds and tweaked the shaders to have a 1:1 relationship between the audio states and visual states.
 
 #### Second performance: The Crypt
-* For this performance we decided to split the tasks up, Priyal would manage visuals only and I would manage the simulation rules only. This meant we had more defined tasks and could communicate our wants in a more straightforward way. This had a great effect, firstly because it created a dialogue between us that helped to build a narrative, and secondly because it meant we could sit back and analyse the state of the system between changes; this was also aided by having a more interesting audio generation and visual feedback without our full intervention.
+* For this performance we decided to split the tasks up, Priyal would manage visuals only and we would manage the simulation rules only. This meant we had more defined tasks and could communicate our wants in a more straightforward way. This had a great effect, firstly because it created a dialogue between us that helped to build a narrative, and secondly because it meant we could sit back and analyse the state of the system between changes; this was also aided by having a more interesting audio generation and visual feedback without our full intervention.
 * Still, even with the gained agency from us, the system still surprised us with the behaviours emerging from both the simulation and the audio; for example, the ruleset and state got to a point where adding seed didn’t change the state of play. However, by simply having more experience performing we were able to incorporate those moments into our set, which surprised (and pleased) me greatly.
-* After the set, plenty of people approached us to ask more about the project, the technical aspects behind it, and some showed a deep conceptual understanding of the performance. Overall, I think the changes we made, informed by both the audience’s feedback and our own experience performing, had an incredible effect on the end result. I am shocked at how much we were able to adjust in two days, which shows how projects are also emergent beings, with aesthetic qualities developing slowly and meaning layering as you mature the project more.
+* After the set, plenty of people approached us to ask more about the project, the technical aspects behind it, and some showed a deep conceptual understanding of the performance. Overall, we think the changes we made, informed by both the audience’s feedback and our own experience performing, had an incredible effect on the end result. We are shocked at how much we were able to adjust in two days, which shows how projects are also emergent beings, with aesthetic qualities developing slowly and meaning layering as you mature the project more.
 
 
 ### General Reflection
 
-One of the most interesting things that happened during development was how we dialled back the human agency in the performance. At first, we wanted to control the ruleset, the seed, and some audiovisual characteristics; in part because I feared without direct human intervention the performance wouldn’t be interesting. But as the project matured, we noticed this would’ve had the opposite effect; the main dynamic of ‘Life’ is a cycle of changing, evaluating, and reacting, which can only be achieved by having limited control and stimulating emergent behaviours. 
+One of the most interesting things that happened during development was how we dialled back the human agency in the performance. At first, we wanted to control the ruleset, the seed, and some audiovisual characteristics; in part because we feared without direct human intervention the performance wouldn’t be interesting. But as the project matured, we noticed this would’ve had the opposite effect; the main dynamic of ‘Life’ is a cycle of changing, evaluating, and reacting, which can only be achieved by having limited control and stimulating emergent behaviours. 
 
-An overarching topic that rose from this project was the importance of shaping the conditions for thriving rather than just forcing things to be a certain way. In our latest iteration, I noticed the performance was about giving direction for the system to evolve and grow while complementing its behaviour through visual elements with a bit of flair. It also showed during development, we had to work heavily on testing and calibrating everything so it fitted the system’s emergent behaviours; it showed me a huge element in performative arts is giving yourself the proper tools to create in a focused manner and that requires a lot of setups, in a funny way, it works like our project does. Even before the performance aspect, while developing we made some conscious decisions to have an environment where we could experiment and iterate quickly, and it allowed us to achieve a result which differed from our initial vision but fulfilled its direction completely.
+An overarching topic that rose from this project was the importance of shaping the conditions for thriving rather than just forcing things to be a certain way. In our latest iteration, we noticed the performance was about giving direction for the system to evolve and grow while complementing its behaviour through visual elements with a bit of flair. It also showed during development, we had to work heavily on testing and calibrating everything so it fitted the system’s emergent behaviours; it showed me a huge element in performative arts is giving yourself the proper tools to create in a focused manner and that requires a lot of setups, in a funny way, it works like our project does. Even before the performance aspect, while developing we made some conscious decisions to have an environment where we could experiment and iterate quickly, and it allowed us to achieve a result which differed from our initial vision but fulfilled its direction completely.
 
 From a technical perspective, this piece helped me notice the importance of having a clear information and systems view of the project. Thanks to our constant consideration of the bigger picture and concern with how the different parts would play along we were able to develop the project quickly and without major reprocesses, which translated in much more time to experiment, refine and play with the tool we built. 
 
-Finally, I noticed that complexity and richness emerge from unexpected points, although our vision had a big part on making this a successful project, it was experimentation and reacting to hurdles which made the end result look the way it did. On the other hand, simplicity can come naturally, the project asked questions constantly and surprised me by having desirable properties in stages that I thought were too early for them to surge. It makes me reflect on my own practice and motivates me to incorporate more rules and play in my creative method.
+Finally, we noticed that complexity and richness emerge from unexpected points, although our vision had a big part on making this a successful project, it was experimentation and reacting to hurdles which made the end result look the way it did. On the other hand, simplicity can come naturally, the project asked questions constantly and surprised me by having desirable properties in stages that we thought were too early for them to surge. It makes me reflect on my own practice and motivates me to incorporate more rules and play in my creative method.
 
 
 # References
