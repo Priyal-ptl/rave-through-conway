@@ -720,7 +720,7 @@ Maybe smoother transitions. Or more gain would be helpful?
 
 ## Second performance: At the crypt
 * there were a few points where the rest collided with the least reproduction rule set, this ended up killing the brand new cells spawned to instantly die.
-* the audio was improved a lot from the earlier class performance. We actually cleaed up the earlier audio input files for each mood and adjusted the transitions to be better.
+* the audio was improved a lot from the earlier performance. We actually cleaed up the earlier audio input files for each mood and adjusted the transitions to be better.
 * adding the live stats really help the visual output look way better and offered more system feedback to covery the conceptual element of the performance better.
 ![Frame 2606848](https://git.arts.ac.uk/user-attachments/assets/a4392eb1-c2ed-40fb-8afc-0653896c1a81)
 
@@ -814,7 +814,7 @@ We followed the user research and testing framework and had the following result
 
 ## Survey
 
-We did a small survey during the class performance;
+We did a small survey during the first performance;
 
 <img width="200" alt="image" src="https://git.arts.ac.uk/user-attachments/assets/89b8cf77-22bd-45a9-8671-a66fcec9f5a8" />
 
@@ -851,12 +851,12 @@ Final touchdesigner file: [Touchdesigner file](Final.toe)
 
 ### Performance Evaluation: Audience Feedback and Personal Observations
 
-We performed the piece twice, first in class and then later at the Crypt.
+We performed the piece twice, first, and then later at the Crypt.
 
 There were a lot of things that didn't go completely right...while these weren't explicit failures they were important observations which helped us redirect our approach at various stages of development.
 
 
-* One of the most useful pieces of feedback from the class performance was that 40% of respondents felt the visuals and sound did not seem connected. This was honestly one of my biggest fears throughout the project. We had decided to split up the tasks quite naturally, with one person focusing a little more on the audio and the other on the visuals, and I was scared they wouldn't sound coherent enough when mashed together. More like, the association between the cell growth and behaviour and the audio change would not be visible at all.
+* One of the most useful pieces of feedback from the first performance was that 40% of respondents felt the visuals and sound did not seem connected. This was honestly one of my biggest fears throughout the project. We had decided to split up the tasks quite naturally, with one person focusing a little more on the audio and the other on the visuals, and I was scared they wouldn't sound coherent enough when mashed together. More like, the association between the cell growth and behaviour and the audio change would not be visible at all.
 In the feedback survey, people did explicitly say this as well, which was a little heartbreaking. But it also validated our own observations after the performance and gave us a clear direction for improvement. We ended up tweaking the audio mappings and transitions quite a bit before the Crypt performance and it did feel noticeably better.
 
 * The feedback was otherwise pretty encouraging. Most participants felt there was a balance between human and machine agency, which was nice because that was one of the main things we were trying to explore. We wanted to create a system that could be influenced and guided, but never completely controlled.
@@ -897,7 +897,7 @@ Although we could modify the rules governing the simulation, trigger seed drops 
 
 ## Performance Evaluation: Audience Feedback and Personal Observations
 
-#### First performance: Class
+#### First performance
 * The performance didn’t come out the way we wanted but that was good: Before the performance I feared that people would think that we had a preset video and just played it, but once we got there and started playing with the system, we were in enough control to manage pacing, rhythm and overall experience. This also meant that we could make mistakes and we did, which showed the liveliness was definitely there. This was supported by the feedback, with a majority of responses stating they found a was a balance between human and machine agency, the goal we set of creating a system we could steer In a direction but not fully control was achieved.
 * From the feedback we gathered we noticed that around 40% of respondents felt the visuals and sound were not connected. I feel like the splitting of tasks we did, which was helpful to achieve the ambitious result we wanted, had a big part on this perceived split; another factor is the fact that the visual changes happen much faster than the audio changes, which means that if not handled correctly the audio can lag behind the actual simulation on screen. To solve this, we proposed working together in some final adjustments to the project before the performance at the crypt.
 * From the open-ended responses my main takeaway is that the system wasn’t as visible as it should and the audience felt that lack of information, some answers asked for further context on the changes we were making, the effects they had and the general message of the piece. However, a positive is that the intuitive analysis of the piece mentioned natural elements being balanced with digital elements, the visuals evoking bacteria or cells, and control being the topic being questioned.
