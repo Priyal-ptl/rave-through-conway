@@ -851,7 +851,7 @@ Final touchdesigner file: [Touchdesigner file](Final.toe)
 
 ### Performance Evaluation: Audience Feedback and Personal Observations
 
-We performed the piece twice, first, and then later at the Crypt.
+We performed the piece twice, first and then later at the Crypt.
 
 There were a lot of things that didn't go completely right...while these weren't explicit failures they were important observations which helped us redirect our approach at various stages of development.
 
